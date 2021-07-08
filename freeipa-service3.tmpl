@@ -1,0 +1,62 @@
+[
+  {
+    "name": "${name_prefix}-freeipa3-${aws_suffix}",
+    "image": "${aws_repo_url}:latest",
+    "essential": true,
+    "environment": [
+      {"name": "ZOO_MY_ID", "value": "1"},
+      {"name": "ZOO_SERVERS", "value": "server.1=0.0.0.0:2888:3888:participant;0.0.0.0:2181 server.2=zkb.${name_prefix}_${aws_suffix}.internal:2888:3888:participant;zkb.${name_prefix}_${aws_suffix}.internal:2181 server.3=zkc.${name_prefix}_${aws_suffix}.internal:2888:3888:participant;zkc.${name_prefix}_${aws_suffix}.internal:2181"},
+      {"name": "ZOO_4LW_COMMANDS_WHITELIST", "value": "*"}
+    ], 
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 80
+      },
+      {
+        "containerPort": 443,
+        "hostPort": 443
+      },
+      {
+        "containerPort": 389,
+        "hostPort": 389
+      },
+      {
+        "containerPort": 636,
+        "hostPort": 636
+      },
+      {
+        "containerPort": 88,
+        "hostPort": 88
+      },
+      {
+        "containerPort": 88,
+        "hostPort": 88,
+        "protocol": "udp"
+      },
+      {
+        "containerPort": 464,
+        "hostPort": 464
+      },
+      {
+        "containerPort": 464,
+        "hostPort": 464,
+        "protocol": "udp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/aws/ecs/${name_prefix}_${aws_suffix}",
+        "awslogs-region": "${aws_region}",
+        "awslogs-stream-prefix": "freeipa3"
+      }
+    },
+    "secrets": [
+      {
+        "name": "PASSWORD",
+        "valueFrom": "${secret_arn}"
+      }
+    ]
+  }
+]
