@@ -34,29 +34,9 @@ variable "prinet3_cidr" {
   type = string
 }
 
-variable "mgmt_cidrs" {
-  type        = list(any)
-  description = "Management CIDRs allowed to reach web_port"
-}
-
 variable "client_cidrs" {
   type        = list(any)
-  description = "Client CIDRs allowed to reach service_port(s)"
-}
-
-variable "instance_type" {
-  type        = string
-  description = "The type of EC2 instance to deploy"
-}
-
-variable "instance_key" {
-  type        = string
-  description = "A public key for SSH access to instance(s)"
-}
-
-variable "instance_vol_size" {
-  type        = number
-  description = "The volume size of the instances' root block device"
+  description = "Client CIDRs allowed to reach service"
 }
 
 variable "kms_manager" {
@@ -136,9 +116,5 @@ variable "ecs_cpu" {
 }
 
 variable "ecs_memory" {
-  type = number
-}
-
-variable "web_port" {
   type = number
 }

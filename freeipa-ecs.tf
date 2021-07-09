@@ -16,6 +16,7 @@ resource "aws_ecs_task_definition" "freeipa-ecs-task" {
       aws_suffix   = random_string.freeipa-random.result
       aws_region   = var.aws_region
       aws_repo_url = aws_ecr_repository.freeipa-repo.repository_url
+      realm        = upper("${var.name_prefix}-${random_string.freeipa-random.result}.internal")
       secret_arn   = aws_ssm_parameter.freeipa-secret.arn
     }
   )

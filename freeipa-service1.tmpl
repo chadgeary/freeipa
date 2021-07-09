@@ -1,12 +1,11 @@
 [
   {
-    "name": "${name_prefix}-freeipa1-${aws_suffix}",
+    "name": "freeipa1.${name_prefix}-${aws_suffix}.internal",
     "image": "${aws_repo_url}:latest",
     "essential": true,
     "environment": [
-      {"name": "ZOO_MY_ID", "value": "1"},
-      {"name": "ZOO_SERVERS", "value": "server.1=0.0.0.0:2888:3888:participant;0.0.0.0:2181 server.2=zkb.${name_prefix}_${aws_suffix}.internal:2888:3888:participant;zkb.${name_prefix}_${aws_suffix}.internal:2181 server.3=zkc.${name_prefix}_${aws_suffix}.internal:2888:3888:participant;zkc.${name_prefix}_${aws_suffix}.internal:2181"},
-      {"name": "ZOO_4LW_COMMANDS_WHITELIST", "value": "*"}
+      {"name": "IPA_SERVER_HOSTNAME", "value": "freeipa1.${name_prefix}-${aws_suffix}.internal"},
+      {"name": "IPA_SERVER_INSTALL_OPTS", "value": "-U -r ${realm}"}
     ], 
     "portMappings": [
       {
@@ -56,7 +55,15 @@
       {
         "name": "PASSWORD",
         "valueFrom": "${secret_arn}"
-      }
+      },
+      {
+        "name": "ds-password",
+        "valueFrom": "${secret_arn}"
+      },
+      {
+        "name": "admin-password",
+        "valueFrom": "${secret_arn}"
+      },
     ]
   }
 ]

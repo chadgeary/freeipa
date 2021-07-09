@@ -52,7 +52,30 @@ resource "aws_security_group_rule" "freeipa-sg-freeipa-outudp" {
   source_security_group_id = aws_security_group.freeipa-prisg.id
 }
 
-# world
+# clients
+resource "aws_security_group_rule" "freeipa-sg-client-intcp" {
+  for_each                 = toset(["80", "443", "389", "636", "88", "464"])
+  security_group_id        = aws_security_group.freeipa-prisg.id
+  type                     = "ingress"
+  description              = "IN FROM SELF TCP ${each.key}"
+  from_port                = each.key
+  to_port                  = each.key
+  protocol                 = "tcp"
+  cidr_blocks              = var.client_cidrs
+}
+
+resource "aws_security_group_rule" "freeipa-sg-client-inudp" {
+  for_each                 = toset(["88", "464"])
+  security_group_id        = aws_security_group.freeipa-prisg.id
+  type                     = "ingress"
+  description              = "OUT FROM SELF UDP ${each.key}"
+  from_port                = each.key
+  to_port                  = each.key
+  protocol                 = "udp"
+  cidr_blocks              = var.client_cidrs
+}
+
+# world egress
 resource "aws_security_group_rule" "freeipa-prisg-tcp-out" {
   security_group_id = aws_security_group.freeipa-prisg.id
   type              = "egress"
