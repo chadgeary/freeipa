@@ -55,6 +55,11 @@ resource "aws_ecs_service" "freeipa-ecs-service1" {
   service_registries {
     registry_arn = aws_service_discovery_service.freeipa-svcdiscovery1.arn
   }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.freeipa-service-target-tcp[1].arn
+    container_name = "freeipa1"
+    container_port = aws_lb_target_group.freeipa-service-target-tcp[1].port
+  }
 }
 
 resource "aws_ecs_service" "freeipa-ecs-service2" {
@@ -71,6 +76,11 @@ resource "aws_ecs_service" "freeipa-ecs-service2" {
   service_registries {
     registry_arn = aws_service_discovery_service.freeipa-svcdiscovery2.arn
   }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.freeipa-service-target-tcp[1].arn
+    container_name = "freeipa2"
+    container_port = aws_lb_target_group.freeipa-service-target-tcp[1].port
+  }
 }
 
 resource "aws_ecs_service" "freeipa-ecs-service3" {
@@ -86,5 +96,10 @@ resource "aws_ecs_service" "freeipa-ecs-service3" {
   }
   service_registries {
     registry_arn = aws_service_discovery_service.freeipa-svcdiscovery3.arn
+  }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.freeipa-service-target-tcp[1].arn
+    container_name = "freeipa3"
+    container_port = aws_lb_target_group.freeipa-service-target-tcp[1].port
   }
 }

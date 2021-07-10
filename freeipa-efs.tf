@@ -11,16 +11,19 @@ resource "aws_efs_file_system" "freeipa-efs-fs" {
 
 resource "aws_efs_mount_target" "freeipa-efs-mount1" {
   file_system_id = aws_efs_file_system.freeipa-efs-fs.id
+  security_groups = [aws_security_group.freeipa-prisg.id]
   subnet_id      = aws_subnet.freeipa-prinet1.id
 }
 
 resource "aws_efs_mount_target" "freeipa-efs-mount2" {
   file_system_id = aws_efs_file_system.freeipa-efs-fs.id
+  security_groups = [aws_security_group.freeipa-prisg.id]
   subnet_id      = aws_subnet.freeipa-prinet2.id
 }
 
 resource "aws_efs_mount_target" "freeipa-efs-mount3" {
   file_system_id = aws_efs_file_system.freeipa-efs-fs.id
+  security_groups = [aws_security_group.freeipa-prisg.id]
   subnet_id      = aws_subnet.freeipa-prinet3.id
 }
 

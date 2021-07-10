@@ -9,7 +9,7 @@ resource "aws_security_group" "freeipa-prisg" {
 
 # self
 resource "aws_security_group_rule" "freeipa-sg-freeipa-intcp" {
-  for_each                 = toset(["80", "443", "389", "636", "88", "464"])
+  for_each                 = toset(["80", "443", "389", "636", "88", "464", "2049"])
   security_group_id        = aws_security_group.freeipa-prisg.id
   type                     = "ingress"
   description              = "IN FROM SELF TCP ${each.key}"
@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "freeipa-sg-freeipa-inudp" {
 }
 
 resource "aws_security_group_rule" "freeipa-sg-freeipa-outtcp" {
-  for_each                 = toset(["80", "443", "389", "636", "88", "464"])
+  for_each                 = toset(["80", "443", "389", "636", "88", "464", "2049"])
   security_group_id        = aws_security_group.freeipa-prisg.id
   type                     = "egress"
   description              = "OUT FROM SELF TCP ${each.key}"

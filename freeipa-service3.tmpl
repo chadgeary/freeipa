@@ -1,6 +1,6 @@
 [
   {
-    "name": "freeipa3.${name_prefix}-${aws_suffix}.internal",
+    "name": "freeipa3",
     "image": "${aws_repo_url}:latest",
     "essential": true,
     "environment": [
@@ -63,7 +63,7 @@
       {
         "name": "admin-password",
         "valueFrom": "${secret_arn}"
-      },
+      }
     ]
   }
 ]

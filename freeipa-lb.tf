@@ -47,6 +47,7 @@ resource "aws_lb_target_group" "freeipa-service-target-tcp" {
   port                 = var.tcp_service_ports[count.index]
   name                 = "${var.name_prefix}-tcp-${var.tcp_service_ports[count.index]}-${random_string.freeipa-random.result}"
   protocol             = "TCP"
+  target_type          = "ip"
   vpc_id               = aws_vpc.freeipa-vpc.id
   preserve_client_ip   = "true"
   deregistration_delay = 10
@@ -64,6 +65,7 @@ resource "aws_lb_target_group" "freeipa-service-target-udp" {
   port                 = var.udp_service_ports[count.index]
   name                 = "${var.name_prefix}-udp-${var.udp_service_ports[count.index]}-${random_string.freeipa-random.result}"
   protocol             = "UDP"
+  target_type          = "ip"
   vpc_id               = aws_vpc.freeipa-vpc.id
   preserve_client_ip   = "true"
   deregistration_delay = 10
@@ -82,6 +84,7 @@ resource "aws_lb_target_group" "freeipa-service-target-tcpudp" {
   port                 = var.tcpudp_service_ports[count.index]
   name                 = "${var.name_prefix}-tcpudp-${var.tcpudp_service_ports[count.index]}-${random_string.freeipa-random.result}"
   protocol             = "TCP_UDP"
+  target_type          = "ip"
   vpc_id               = aws_vpc.freeipa-vpc.id
   preserve_client_ip   = "true"
   deregistration_delay = 10
