@@ -118,3 +118,31 @@ variable "ecs_cpu" {
 variable "ecs_memory" {
   type = number
 }
+
+variable "vendor_ami_account_number" {
+  type = string
+}
+
+variable "vendor_ami_name_string" {
+  type = string
+}
+
+variable "instance_type" {
+  type = string
+}
+
+variable "instance_vol_size" {
+  type = string
+}
+
+variable "minimum_node_count" {
+  type = number
+}
+
+variable "maximum_node_count" {
+  type = number
+}
+
+variable "ssh_key" {
+  type = string
+}

@@ -53,9 +53,9 @@ resource "aws_lb_target_group" "freeipa-service-target-tcp" {
   deregistration_delay = 10
   health_check {
     enabled             = "true"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    interval            = 10
+    healthy_threshold   = 5
+    unhealthy_threshold = 5
+    interval            = 30
     protocol            = "TCP"
   }
 }
@@ -71,9 +71,9 @@ resource "aws_lb_target_group" "freeipa-service-target-udp" {
   deregistration_delay = 10
   health_check {
     enabled             = "true"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    interval            = 10
+    healthy_threshold   = 5
+    unhealthy_threshold = 5
+    interval            = 30
     port                = "443"
     protocol            = "TCP"
   }
@@ -90,9 +90,9 @@ resource "aws_lb_target_group" "freeipa-service-target-tcpudp" {
   deregistration_delay = 10
   health_check {
     enabled             = "true"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    interval            = 10
+    healthy_threshold   = 5
+    unhealthy_threshold = 5
+    interval            = 30
     protocol            = "TCP"
   }
 }

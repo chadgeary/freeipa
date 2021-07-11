@@ -1,6 +1,6 @@
 resource "aws_ecs_cluster" "freeipa-ecs-cluster" {
   name               = "${var.name_prefix}-ecscluster-${random_string.freeipa-random.result}"
-  capacity_providers = ["FARGATE"]
+  capacity_providers = [aws_ecs_capacity_provider.freeipa-ecs-provider.name]
   setting {
     name  = "containerInsights"
     value = "enabled"
@@ -23,7 +23,7 @@ resource "aws_ecs_task_definition" "freeipa-ecs-task" {
   cpu                      = var.ecs_cpu
   memory                   = var.ecs_memory
   network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
+  requires_compatibilities = ["EC2"]
   task_role_arn            = aws_iam_role.freeipa-ecs-role.arn
   execution_role_arn       = aws_iam_role.freeipa-ecs-role.arn
   volume {
@@ -46,7 +46,7 @@ resource "aws_ecs_service" "freeipa-ecs-service1" {
   cluster         = aws_ecs_cluster.freeipa-ecs-cluster.id
   task_definition = aws_ecs_task_definition.freeipa-ecs-task["1"].arn
   desired_count   = 1
-  launch_type     = "FARGATE"
+  launch_type     = "EC2"
   network_configuration {
     subnets          = [aws_subnet.freeipa-prinet1.id]
     security_groups  = [aws_security_group.freeipa-prisg.id]
@@ -67,7 +67,7 @@ resource "aws_ecs_service" "freeipa-ecs-service2" {
   cluster         = aws_ecs_cluster.freeipa-ecs-cluster.id
   task_definition = aws_ecs_task_definition.freeipa-ecs-task["2"].arn
   desired_count   = 1
-  launch_type     = "FARGATE"
+  launch_type     = "EC2"
   network_configuration {
     subnets          = [aws_subnet.freeipa-prinet2.id]
     security_groups  = [aws_security_group.freeipa-prisg.id]
@@ -88,7 +88,7 @@ resource "aws_ecs_service" "freeipa-ecs-service3" {
   cluster         = aws_ecs_cluster.freeipa-ecs-cluster.id
   task_definition = aws_ecs_task_definition.freeipa-ecs-task["3"].arn
   desired_count   = 1
-  launch_type     = "FARGATE"
+  launch_type     = "EC2"
   network_configuration {
     subnets          = [aws_subnet.freeipa-prinet3.id]
     security_groups  = [aws_security_group.freeipa-prisg.id]
